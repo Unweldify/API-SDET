@@ -3,75 +3,59 @@ from random import choice
 
 
 @allure.title('Проверить функциональность добавления сущности.')
-@staticmethod
-def test_create_entity(entitymodel, entity_api, generate_data):
-    with allure.step('Генерируем cущество'):
-        entity = entitymodel(**generate_data())
-
-    id = int(entity_api.create_entity(entity))
+def test_create_entity(entity_api, generated_entity):
+    id = int(entity_api.create_entity(generated_entity))
 
     in_list = entity_api.get_entity(id)
 
-    with allure.step('Смотрим если сущность есть в списке'):
+    with allure.step('Смотрим если сущность есть в списке.'):
         assert in_list, (
-            'Существо не было создано.'
+            'Сущность не была создана.'
         )
 
 
 @allure.title('Проверить функциональность удаления сущности.')
-@staticmethod
-def test_delete_entity(entitymodel, entity_api, generate_data):
-    with allure.step('Генерируем cущество'):
-        entity = entitymodel(**generate_data())
-
-    id = int(entity_api.create_entity(entity))
+def test_delete_entity(entity_api, generated_entity):
+    id = int(entity_api.create_entity(generated_entity))
 
     entity_api.delete_entity(id)
 
     in_list = entity_api.get_entity(id)
-    with allure.step('Смотрим если сущность удалилась'):
+    with allure.step('Смотрим если сущность удалилась.'):
         assert not in_list, (
-            'Существо не удалилось.'
+            'Сущность не удалилась.'
         )
 
 
 @allure.title('Проверить функциональность получения сущности.')
-@staticmethod
-def test_get_entity(entitymodel, entity_api, generate_data):
-    with allure.step('Генерируем cуществ'):
-        entity = entitymodel(**generate_data())
+def test_get_entity(entity_api, generated_entity):
 
-    id = entity_api.create_entity(entity)
+    id = entity_api.create_entity(generated_entity)
 
     in_list = entity_api.get_entity(id)
 
     with allure.step('Посмотрим если существо было получено'):
         assert in_list, (
-            'Существо не было получено.'
+            'Сущность не была получена.'
         )
 
 
 @allure.title('Проверить функциональность получения списка сущностей.')
-@staticmethod
 def test_get_entities(entity_api):
     entities = entity_api.get_all_entities()
 
-    with allure.step('Посмотрим если был получен список существ.'):
+    with allure.step('Посмотрим если был получен список сущностей.'):
         assert entities != [], (
-            'Существо не было получено.'
+            'Список сущностей не был получен.'
         )
 
 
 @allure.title('Проверить функциональность изменения сущности.')
-@staticmethod
-def test_patch_entity(entitymodel, entity_api, generate_data):
-    with allure.step('Генерируем cуществ для изменения'):
-        entity = entitymodel(**generate_data())
-
+def test_patch_entity(entity_api, generated_entity):
     id = choice(entity_api.get_all_entities()).id
     old_entity = entity_api.get_entity(id)
 
-    entity_api.patch_entity(id, entity)
+    entity_api.patch_entity(id, generated_entity)
 
     new_entity = entity_api.get_entity(id)
 

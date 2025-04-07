@@ -8,10 +8,6 @@ from Services.Entity.data_generator import Generator
 def entity_api() -> EntityRequest:
     return EntityRequest
 
-@pytest.fixture
-def entitymodel() -> Entity:
-    return Entity
-
 @pytest.fixture()
-def generate_data() -> Generator.generate_client_data:
-    return Generator.generate_client_data
+def generated_entity() -> Entity:
+    return Entity(**Generator.generate_client_data())

@@ -10,7 +10,7 @@ request = Request()
 
 
 class EntityRequest:
-    """Класс для отправки запросов в API сущностями"""
+    """Класс для отправки запросов в API сущностей."""
     @staticmethod
     @allure.step('Отправляем запрос добавления сущности')
     def create_entity(entity: Entity) -> str:

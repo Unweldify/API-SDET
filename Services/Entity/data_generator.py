@@ -1,11 +1,13 @@
 from random import randint
-
+from typing import Dict
 
 class Generator:
     """Класс генератор для создания данных"""
-    def generate_client_data():
+    @staticmethod
+    def generate_client_data() -> Dict:
         """
         Генерирует данные клиента
+
         :return: Возвращает словарь данных клиента
         """
         title = ''

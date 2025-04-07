@@ -1,5 +1,4 @@
 import os
-import json
 
 import requests
 from dotenv import load_dotenv
@@ -8,7 +7,7 @@ load_dotenv()
 
 
 class Request:
-    """Класс для отправки запросов API"""
+    """Класс для отправки запросов API."""
     def __init__(self, url=os.getenv("REQUEST_URL"), path=''):
         self.url = url
         self.path = path
@@ -25,7 +24,8 @@ class Request:
 
     def send_request(self, method: str, path: str, payload: str = '') -> requests.Response:
         """
-        Метод конструирует и отправляет HTTP-запрос
+        Метод конструирует и отправляет HTTP-запрос.
+
         :param method: Метод запроса - POST, GET и т.д.
         :param path: URL запроса
         :param payload: Тело запроса
