@@ -4,7 +4,7 @@ from random import choice
 
 @allure.title('Проверить функциональность добавления сущности.')
 def test_create_entity(entity_api, generated_entity):
-    id = int(entity_api.create_entity(generated_entity))
+    id = entity_api.create_entity(generated_entity)
 
     in_list = entity_api.get_entity(id)
 
@@ -16,7 +16,7 @@ def test_create_entity(entity_api, generated_entity):
 
 @allure.title('Проверить функциональность удаления сущности.')
 def test_delete_entity(entity_api, generated_entity):
-    id = int(entity_api.create_entity(generated_entity))
+    id = entity_api.create_entity(generated_entity)
 
     entity_api.delete_entity(id)
 
@@ -34,7 +34,7 @@ def test_get_entity(entity_api, generated_entity):
 
     in_list = entity_api.get_entity(id)
 
-    with allure.step('Посмотрим если существо было получено'):
+    with allure.step('Посмотрим если сущность была получена'):
         assert in_list, (
             'Сущность не была получена.'
         )
@@ -45,7 +45,7 @@ def test_get_entities(entity_api):
     entities = entity_api.get_all_entities()
 
     with allure.step('Посмотрим если был получен список сущностей.'):
-        assert entities != [], (
+        assert entities, (
             'Список сущностей не был получен.'
         )
 
@@ -59,7 +59,7 @@ def test_patch_entity(entity_api, generated_entity):
 
     new_entity = entity_api.get_entity(id)
 
-    with allure.step('Смотрим если существо изменилось.'):
+    with allure.step('Смотрим если сущность изменилась.'):
         assert new_entity.model_dump_json() != old_entity.model_dump_json(), (
-            'Существо не изменено.'
+            'Сущность не изменена.'
         )

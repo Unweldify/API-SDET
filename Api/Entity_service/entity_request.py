@@ -4,18 +4,18 @@ import allure
 from pydantic import ValidationError
 
 from Entity.entity_model import Entity
-from Services.Entity.request_handler import Request
+from Api.Base_api.request import Request
 
 request = Request()
 
 
-class EntityRequest:
+class EntityService:
     """Класс для отправки запросов в API сущностей."""
     @staticmethod
     @allure.step('Отправляем запрос добавления сущности')
-    def create_entity(entity: Entity) -> str:
+    def create_entity(entity: Entity) -> int:
         response = request.send_request('POST', 'create', entity.model_dump_json())
-        return response.json()
+        return int(response.json())
 
     @staticmethod
     @allure.step('Отправляем запрос удаления сущности')

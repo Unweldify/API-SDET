@@ -1,12 +1,12 @@
 import pytest
 
-from Services.Entity.entity_request import EntityRequest
+from Api.Entity_service.entity_request import EntityService
 from Entity.entity_model import Entity
-from Services.Entity.data_generator import Generator
+from Data.data_generator import Generator
 
 @pytest.fixture
-def entity_api() -> EntityRequest:
-    return EntityRequest
+def entity_api() -> EntityService:
+    return EntityService
 
 @pytest.fixture()
 def generated_entity() -> Entity:
